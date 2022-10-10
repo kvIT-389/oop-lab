@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Stack;
+import java.util.StringJoiner;
 
 
 public class Main {
@@ -159,6 +161,20 @@ public class Main {
 
     private static void RunTask3()
     {
-        System.out.println("Решаем задачу C");
+        System.out.print("Введите текст: ");
+        Scanner line = new Scanner(scanner.nextLine());
+
+        Stack<String> words = new Stack<String>();
+        while (line.hasNext()) {
+            words.push(line.next());
+        }
+
+        StringJoiner jnr = new StringJoiner(" ");
+        while (!words.isEmpty()) {
+            jnr.add(words.pop());
+        }
+
+        System.out.print("Текст с измененным порядком слов: ");
+        System.out.println(jnr.toString());
     }
 }
