@@ -138,7 +138,23 @@ public class Main {
 
     private static void RunTask2()
     {
-        System.out.println("Решаем задачу B");
+        System.out.print("Введите текст: ");
+        String text = scanner.nextLine();
+
+        String vowels = "aeiouyаеиоуыэюя";
+        int vowels_count = 0;
+        for (Character v : vowels.toCharArray()) {
+            for (Character c : text.toCharArray()) {
+                if (c == v) {
+                    ++vowels_count;
+                }
+            }
+        }
+
+        System.out.println(String.format(
+            "Количество гласных букв в тексте равно %d.",
+            vowels_count
+        ));
     }
 
     private static void RunTask3()
