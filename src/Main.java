@@ -22,15 +22,15 @@ public class Main {
             ClearConsole();
             switch (choice) {
                 case "a":
-                    RunTask1();
+                    RunTaskA();
                     break;
 
                 case "b":
-                    RunTask2();
+                    RunTaskB();
                     break;
 
                 case "c":
-                    RunTask3();
+                    RunTaskC();
                     break;
 
                 default:
@@ -68,11 +68,11 @@ public class Main {
     }
 
 
-    private static void RunTask1()
+    private static void RunTaskA()
     {
         Integer size;
         do {
-            ClearConsole();
+            System.out.print("\033[1A\r\033[J");
             System.out.print("Введите размер массива N (1 < N < 10): ");
 
             size = scanner.nextInt();
@@ -138,7 +138,7 @@ public class Main {
         System.out.println(new_array);
     }
 
-    private static void RunTask2()
+    private static void RunTaskB()
     {
         System.out.print("Введите текст: ");
         String text = scanner.nextLine();
@@ -159,7 +159,7 @@ public class Main {
         ));
     }
 
-    private static void RunTask3()
+    private static void RunTaskC()
     {
         System.out.print("Введите текст: ");
         Scanner line = new Scanner(scanner.nextLine());
