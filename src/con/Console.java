@@ -6,6 +6,9 @@ import java.util.Scanner;
 public class Console {
     private static Scanner m_scannerSystemIn = new Scanner(System.in);
 
+    private static String m_integerRegex = "[\\+\\-]?\\d+";
+    private static String m_doubleRegex = "[\\+\\-]?\\d+(.\\d+)?";
+
     public Console() {}
 
     public static void clear()
@@ -16,7 +19,8 @@ public class Console {
 
     public static void pause()
     {
-        printLine("\nНажмите Enter, чтобы продолжить");
+        printLine();
+        printLine("Нажмите Enter, чтобы продолжить");
         nextLine();
     }
 
@@ -42,13 +46,83 @@ public class Console {
         return m_scannerSystemIn.nextLine();
     }
 
-    public static Integer nextInteger()
+    public static String nextLine(String askMessage)
     {
-        return m_scannerSystemIn.nextInt();
+        if (askMessage != null) {
+            print(askMessage + ": ");
+        }
+
+        return nextLine();
     }
 
-    public static Double nextDouble()
+    public static String nextLine(String askMessage, String matchRegex)
     {
-        return m_scannerSystemIn.nextDouble();
+        String result = Console.nextLine(askMessage);
+
+        while (!result.matches(matchRegex)) {
+            print("\033[1A\r\033[K");
+
+            result = Console.nextLine(askMessage);
+        }
+
+        return result;
+    }
+
+
+    public static Integer getInteger()
+    {
+        return Integer.parseInt(nextLine(
+            null, m_integerRegex
+        ));
+    }
+
+    public static Integer getInteger(String askMessage)
+    {
+        return Integer.parseInt(nextLine(
+            askMessage, m_integerRegex
+        ));
+    }
+
+    public static Integer getInteger(
+        String askMessage,
+        Integer leftBoundary, Integer rightBoundary
+    )
+    {
+        Integer result = Console.getInteger(askMessage);
+        while (result < leftBoundary || result > rightBoundary) {
+            print("\033[1A\r\033[K");
+            result = Console.getInteger(askMessage);
+        }
+
+        return result;
+    }
+
+
+    public static Double getDouble()
+    {
+        return Double.parseDouble(nextLine(
+            null, m_doubleRegex
+        ));
+    }
+
+    public static Double getDouble(String askMessage)
+    {
+        return Double.parseDouble(nextLine(
+            askMessage, m_doubleRegex
+        ));
+    }
+
+    public static Double getDouble(
+        String askMessage,
+        Double leftBoundary, Double rightBoundary
+    )
+    {
+        Double result = Console.getDouble(askMessage);
+        while (result < leftBoundary || result > rightBoundary) {
+            print("\033[1A\r\033[K");
+            result = Console.getDouble(askMessage);
+        }
+
+        return result;
     }
 }
