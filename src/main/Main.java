@@ -1,8 +1,8 @@
-import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
 
+import ext.ExtendedArray;
 import ext.ExtendedString;
 
 
@@ -79,18 +79,18 @@ public class Main {
         }
         while (size <= 1 || size >= 10);
 
-        ArrayList<Double> source_array = new ArrayList<>();
+        ExtendedArray array = new ExtendedArray();
 
         for (int i = 0; i < size; ++i) {
             Double new_el = Math.round(
                 (rand.nextDouble() * 100.0 - 50.0) * 10.0
             ) / 10.0;
 
-            source_array.add(new_el);
+            array.add(new_el);
         }
 
         System.out.println("Сгенерированный массив:");
-        System.out.println(source_array);
+        System.out.println(array);
 
 
         System.out.print("\nВведите второй операнд: ");
@@ -106,36 +106,11 @@ public class Main {
             op_string = scanner.nextLine();
         }
         while (!op_string.matches("[\\+\\-\\*/]"));
-        Character op = op_string.charAt(0);
 
-
-        ArrayList<Double> new_array = new ArrayList<>();
-
-        for (Double el : source_array) {
-            Double new_el = 0.0;
-            switch (op) {
-                case '+':
-                    new_el = el + arg;
-                    break;
-
-                case '-':
-                    new_el = el - arg;
-                    break;
-
-                case '*':
-                    new_el = el * arg;
-                    break;
-
-                case '/':
-                    new_el = el / arg;
-                    break;
-
-            }
-            new_array.add(new_el);
-        }
+        array.apply(op_string, arg);
 
         System.out.println("\nОбработанный массив:");
-        System.out.println(new_array);
+        System.out.println(array);
     }
 
     private static void RunTaskB()
