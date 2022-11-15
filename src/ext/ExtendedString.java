@@ -8,7 +8,10 @@ import java.util.StringJoiner;
 public class ExtendedString {
     private String m_string;
 
-    public ExtendedString() {}
+    public ExtendedString()
+    {
+        m_string = new String();
+    }
 
     public ExtendedString(String string)
     {

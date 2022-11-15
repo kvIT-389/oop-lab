@@ -7,7 +7,10 @@ import calc.Calculator;
 public class ExtendedArray {
     private ArrayList<Double> m_array;
 
-    public ExtendedArray() {}
+    public ExtendedArray()
+    {
+        m_array = new ArrayList<>();
+    }
 
     public void add(Double e)
     {
