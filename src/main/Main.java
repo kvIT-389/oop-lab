@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Stack;
-import java.util.StringJoiner;
+
+import ext.ExtendedString;
 
 
 public class Main {
@@ -141,40 +141,29 @@ public class Main {
     private static void RunTaskB()
     {
         System.out.print("Введите текст: ");
-        String text = scanner.nextLine();
+        ExtendedString string = new ExtendedString(
+            scanner.nextLine().toLowerCase(Locale.ROOT)
+        );
 
-        String vowels = "aeiouyаеиоуыэюя";
-        int vowels_count = 0;
-        for (Character v : vowels.toCharArray()) {
-            for (Character c : text.toCharArray()) {
-                if (c == v) {
-                    ++vowels_count;
-                }
-            }
-        }
+        Character vowels[] = {
+            'a', 'e', 'i', 'o', 'u', 'y',
+            'а', 'е', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я'
+        };
 
         System.out.println(String.format(
             "Количество гласных букв в тексте равно %d.",
-            vowels_count
+            string.countCharacters(vowels)
         ));
     }
 
     private static void RunTaskC()
     {
         System.out.print("Введите текст: ");
-        Scanner line = new Scanner(scanner.nextLine());
+        ExtendedString string = new ExtendedString(scanner.nextLine());
 
-        Stack<String> words = new Stack<String>();
-        while (line.hasNext()) {
-            words.push(line.next());
-        }
-
-        StringJoiner jnr = new StringJoiner(" ");
-        while (!words.isEmpty()) {
-            jnr.add(words.pop());
-        }
-
-        System.out.print("Текст с измененным порядком слов: ");
-        System.out.println(jnr.toString());
+        System.out.println(String.format(
+            "Текст с измененным порядком слов: %s",
+            string.reversedWordsOrder()
+        ));
     }
 }
