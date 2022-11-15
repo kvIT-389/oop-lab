@@ -1,25 +1,24 @@
 import java.util.Locale;
 import java.util.Random;
-import java.util.Scanner;
 
+import con.Console;
 import ext.ExtendedArray;
 import ext.ExtendedString;
 
 
 public class Main {
-    private static Scanner scanner = new Scanner(System.in);
     private static Random rand = new Random();
 
     public static void main(String[] args)
     {
         String choice;
         do {
-            ClearConsole();
+            Console.clear();
             PrintMenu();
 
-            choice = scanner.nextLine().toLowerCase(Locale.ROOT);
+            choice = Console.nextLine("Ваш выбор").toLowerCase(Locale.ROOT);
 
-            ClearConsole();
+            Console.clear();
             switch (choice) {
                 case "a":
                     RunTaskA();
@@ -37,47 +36,30 @@ public class Main {
                     continue;
             }
 
-            Pause();
+            Console.pause();
         }
         while (!choice.equals("q"));
 
-        ClearConsole();
-    }
-
-    private static void ClearConsole()
-    {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    private static void Pause()
-    {
-        System.out.println("\nНажмите Enter, чтобы продолжить");
-        scanner.nextLine();
+        Console.clear();
     }
 
     private static void PrintMenu()
     {
-        System.out.println("Выберите дальнейшее действие:");
-        System.out.println("[A] - Запустить решение задачи A;");
-        System.out.println("[B] - Запустить решение задачи B;");
-        System.out.println("[C] - Запустить решение задачи C;");
-        System.out.println("[Q] - Выйти из программы.");
-        System.out.println();
-        System.out.print("Ваш выбор: ");
+        Console.printLine("Выберите дальнейшее действие:");
+        Console.printLine("[A] - Запустить решение задачи A;");
+        Console.printLine("[B] - Запустить решение задачи B;");
+        Console.printLine("[C] - Запустить решение задачи C;");
+        Console.printLine("[Q] - Выйти из программы.");
+        Console.printLine();
     }
 
 
     private static void RunTaskA()
     {
-        Integer size;
-        do {
-            System.out.print("\033[1A\r\033[J");
-            System.out.print("Введите размер массива N (1 < N < 10): ");
-
-            size = scanner.nextInt();
-        }
-        while (size <= 1 || size >= 10);
+        Integer size = Console.getInteger(
+            "Введите размер массива N (2 <= N <= 10)",
+            2, 10
+        );
 
         ExtendedArray array = new ExtendedArray();
 
@@ -89,35 +71,27 @@ public class Main {
             array.add(new_el);
         }
 
-        System.out.println("Сгенерированный массив:");
-        System.out.println(array);
+        Console.printLine("Сгенерированный массив:");
+        Console.printLine(array);
+        Console.printLine();
 
-
-        System.out.print("\nВведите второй операнд: ");
-        Double arg = scanner.nextDouble();
-
-        System.out.println("\n\n");
-
-        String op_string;
-        do {
-            System.out.print("\033[1A\r\033[J");
-            System.out.print("Введите знак операции (+,-,*,/): ");
-
-            op_string = scanner.nextLine();
-        }
-        while (!op_string.matches("[\\+\\-\\*/]"));
+        Double arg = Console.getDouble("Введите второй операнд");
+        String op_string = Console.nextLine(
+            "Введите знак операции (+,-,*,/)",
+            "[\\+\\-\\*/]"
+        );
 
         array.apply(op_string, arg);
 
-        System.out.println("\nОбработанный массив:");
-        System.out.println(array);
+        Console.printLine();
+        Console.printLine("Обработанный массив:");
+        Console.printLine(array);
     }
 
     private static void RunTaskB()
     {
-        System.out.print("Введите текст: ");
         ExtendedString string = new ExtendedString(
-            scanner.nextLine().toLowerCase(Locale.ROOT)
+            Console.nextLine("Введите текст").toLowerCase(Locale.ROOT)
         );
 
         Character vowels[] = {
@@ -125,7 +99,7 @@ public class Main {
             'а', 'е', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я'
         };
 
-        System.out.println(String.format(
+        Console.printLine(String.format(
             "Количество гласных букв в тексте равно %d.",
             string.countCharacters(vowels)
         ));
@@ -133,10 +107,10 @@ public class Main {
 
     private static void RunTaskC()
     {
-        System.out.print("Введите текст: ");
-        ExtendedString string = new ExtendedString(scanner.nextLine());
+        Console.print("Введите текст: ");
+        ExtendedString string = new ExtendedString(Console.nextLine());
 
-        System.out.println(String.format(
+        Console.printLine(String.format(
             "Текст с измененным порядком слов: %s",
             string.reversedWordsOrder()
         ));
