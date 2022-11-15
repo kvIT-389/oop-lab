@@ -1,12 +1,11 @@
 package calc;
 
 import java.util.Map;
-import java.util.function.BinaryOperator;
+import java.util.function.DoubleBinaryOperator;
 
 
 public class Calculator {
-    enum BinaryOperatorCode
-    {
+    public enum BinaryOperatorCode {
         Addition,
         Subtraction,
         Multiplication,
@@ -15,12 +14,20 @@ public class Calculator {
 
     public Calculator() {}
 
-    private static Map<BinaryOperatorCode, BinaryOperator<Double>>
+    private static Map<BinaryOperatorCode, DoubleBinaryOperator>
     m_binaryOperators = Map.of(
-        BinaryOperatorCode.Addition,       (a, b) -> { return a + b; },
-        BinaryOperatorCode.Subtraction,    (a, b) -> { return a - b; },
-        BinaryOperatorCode.Multiplication, (a, b) -> { return a * b; },
-        BinaryOperatorCode.Division,       (a, b) -> { return a / b; }
+        /* Addition operator */
+        BinaryOperatorCode.Addition,
+        (a, b) -> { return a + b; },
+        /* Subtraction operator */
+        BinaryOperatorCode.Subtraction,
+        (a, b) -> { return a - b; },
+        /* Multiplication operator */
+        BinaryOperatorCode.Multiplication,
+        (a, b) -> { return a * b; },
+        /* Division operator */
+        BinaryOperatorCode.Division,
+        (a, b) -> { return a / b; }
     );
 
     private static Map<String, BinaryOperatorCode>
@@ -31,18 +38,19 @@ public class Calculator {
         "/", BinaryOperatorCode.Division
     );
 
-    public static Double calc(BinaryOperatorCode operatorCode, Double a, Double b)
-    {
-        return m_binaryOperators.get(operatorCode).apply(a, b);
+    public static Double calculate(BinaryOperatorCode operatorCode,
+                                   Double a, Double b) {
+        return m_binaryOperators.get(operatorCode).applyAsDouble(a, b);
     }
 
-    public static Double calc(String binaryOperatorName, Double a, Double b)
-    {
-        return calc(getBinaryOperatorCode(binaryOperatorName), a, b);
+    public static Double calculate(String operatorName,
+                                   Double a, Double b) {
+        return calculate(
+            getBinaryOperatorCode(operatorName), a, b
+        );
     }
 
-    public static BinaryOperatorCode getBinaryOperatorCode(String operatorName)
-    {
+    public static BinaryOperatorCode getBinaryOperatorCode(String operatorName) {
         return m_binaryOperatorNames.get(operatorName);
     }
 }

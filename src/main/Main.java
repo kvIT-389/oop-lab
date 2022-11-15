@@ -16,7 +16,9 @@ public class Main {
             Console.clear();
             PrintMenu();
 
-            choice = Console.nextLine("Ваш выбор").toLowerCase(Locale.ROOT);
+            choice = Console.readLine(
+                "Ваш выбор"
+            ).toLowerCase(Locale.ROOT);
 
             Console.clear();
             switch (choice) {
@@ -76,12 +78,12 @@ public class Main {
         Console.printLine();
 
         Double arg = Console.getDouble("Введите второй операнд");
-        String op_string = Console.nextLine(
+        String op = Console.readLine(
             "Введите знак операции (+,-,*,/)",
             "[\\+\\-\\*/]"
         );
 
-        array.apply(op_string, arg);
+        array.apply(op, arg);
 
         Console.printLine();
         Console.printLine("Обработанный массив:");
@@ -91,7 +93,9 @@ public class Main {
     private static void RunTaskB()
     {
         ExtendedString string = new ExtendedString(
-            Console.nextLine("Введите текст").toLowerCase(Locale.ROOT)
+            Console.readLine(
+                "Введите текст"
+            ).toLowerCase(Locale.ROOT)
         );
 
         Character vowels[] = {
@@ -108,7 +112,9 @@ public class Main {
     private static void RunTaskC()
     {
         Console.print("Введите текст: ");
-        ExtendedString string = new ExtendedString(Console.nextLine());
+        ExtendedString string = new ExtendedString(
+            Console.readLine()
+        );
 
         Console.printLine(String.format(
             "Текст с измененным порядком слов: %s",

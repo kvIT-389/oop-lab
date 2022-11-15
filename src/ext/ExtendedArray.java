@@ -25,7 +25,7 @@ public class ExtendedArray {
     public void apply(String binaryOperatorName, Double arg)
     {
         m_array.replaceAll((a) -> {
-            return Calculator.calc(
+            return Calculator.calculate(
                 binaryOperatorName, a, arg
             );
         });

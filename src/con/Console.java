@@ -11,116 +11,101 @@ public class Console {
 
     public Console() {}
 
-    public static void clear()
-    {
+    public static void clear() {
         System.out.flush();
         System.out.print("\033[H\033[2J");
     }
 
-    public static void pause()
-    {
+    public static void pause() {
         printLine();
         printLine("Нажмите Enter, чтобы продолжить");
-        nextLine();
+        readLine();
     }
 
 
-    public static void print(Object obj)
-    {
+    public static void print(Object obj) {
         System.out.print(obj);
     }
 
-    public static void printLine()
-    {
+    public static void printLine() {
         System.out.print('\n');
     }
 
-    public static void printLine(Object obj)
-    {
+    public static void printLine(Object obj) {
         System.out.println(obj);
     }
 
 
-    public static String nextLine()
-    {
+    public static String readLine() {
         return m_scannerSystemIn.nextLine();
     }
 
-    public static String nextLine(String askMessage)
-    {
+    public static String readLine(String askMessage) {
         if (askMessage != null) {
             print(askMessage + ": ");
         }
 
-        return nextLine();
+        return readLine();
     }
 
-    public static String nextLine(String askMessage, String matchRegex)
-    {
-        String result = Console.nextLine(askMessage);
+    public static String readLine(String askMessage,
+                                  String matchRegex) {
+        String result = readLine(askMessage);
 
         while (!result.matches(matchRegex)) {
             print("\033[1A\r\033[K");
-
-            result = Console.nextLine(askMessage);
+            result = readLine(askMessage);
         }
 
         return result;
     }
 
 
-    public static Integer getInteger()
-    {
-        return Integer.parseInt(nextLine(
+    public static Integer getInteger() {
+        return Integer.parseInt(readLine(
             null, m_integerRegex
         ));
     }
 
-    public static Integer getInteger(String askMessage)
-    {
-        return Integer.parseInt(nextLine(
+    public static Integer getInteger(String askMessage) {
+        return Integer.parseInt(readLine(
             askMessage, m_integerRegex
         ));
     }
 
-    public static Integer getInteger(
-        String askMessage,
-        Integer leftBoundary, Integer rightBoundary
-    )
-    {
-        Integer result = Console.getInteger(askMessage);
+    public static Integer getInteger(String askMessage,
+                                     Integer leftBoundary,
+                                     Integer rightBoundary) {
+        Integer result = getInteger(askMessage);
+
         while (result < leftBoundary || result > rightBoundary) {
             print("\033[1A\r\033[K");
-            result = Console.getInteger(askMessage);
+            result = getInteger(askMessage);
         }
 
         return result;
     }
 
 
-    public static Double getDouble()
-    {
-        return Double.parseDouble(nextLine(
+    public static Double getDouble() {
+        return Double.parseDouble(readLine(
             null, m_doubleRegex
         ));
     }
 
-    public static Double getDouble(String askMessage)
-    {
-        return Double.parseDouble(nextLine(
+    public static Double getDouble(String askMessage) {
+        return Double.parseDouble(readLine(
             askMessage, m_doubleRegex
         ));
     }
 
-    public static Double getDouble(
-        String askMessage,
-        Double leftBoundary, Double rightBoundary
-    )
-    {
-        Double result = Console.getDouble(askMessage);
+    public static Double getDouble(String askMessage,
+                                   Double leftBoundary,
+                                   Double rightBoundary) {
+        Double result = getDouble(askMessage);
         while (result < leftBoundary || result > rightBoundary) {
             print("\033[1A\r\033[K");
-            result = Console.getDouble(askMessage);
+            result = getDouble(askMessage);
         }
 
         return result;

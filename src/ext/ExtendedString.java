@@ -23,11 +23,11 @@ public class ExtendedString {
         return m_string;
     }
 
-    public Integer countCharacters(Character chars[])
+    public Integer countCharacters(Character characters[])
     {
         Integer count = 0;
 
-        for (Character ch : chars) {
+        for (Character ch : characters) {
             for (Character str_char : m_string.toCharArray()) {
                 if (str_char.equals(ch)) {
                     ++count;
