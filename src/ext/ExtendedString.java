@@ -18,6 +18,11 @@ public class ExtendedString {
         m_string = string;
     }
 
+    public String toString()
+    {
+        return m_string;
+    }
+
     public Integer countCharacters(Character chars[])
     {
         Integer count = 0;
@@ -33,7 +38,7 @@ public class ExtendedString {
         return count;
     }
 
-    public String reversedWordsOrder()
+    public ExtendedString reversedWordsOrder()
     {
         Scanner line = new Scanner(m_string);
 
@@ -49,6 +54,6 @@ public class ExtendedString {
             jnr.add(words.pop());
         }
 
-        return jnr.toString();
+        return new ExtendedString(jnr.toString());
     }
 }

@@ -12,6 +12,11 @@ public class ExtendedArray {
         m_array = new ArrayList<>();
     }
 
+    public String toString()
+    {
+        return m_array.toString();
+    }
+
     public void add(Double e)
     {
         m_array.add(e);
