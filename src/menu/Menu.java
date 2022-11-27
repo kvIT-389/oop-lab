@@ -8,6 +8,8 @@ import function.Action;
 
 
 public class Menu {
+    private String m_title;
+
     private HashMap<String, MenuEntry> m_entries;
 
     private ArrayList<String> m_entriesNames;
@@ -16,10 +18,18 @@ public class Menu {
     private String m_choiceAskMessage;
 
     public Menu() {
-        this("Q", "Выход");
+        this(null);
     }
 
-    public Menu(String exitEntryName, String exitEntryTitle) {
+    public Menu(String title) {
+        this(title, "Q", "Выход");
+    }
+    
+    public Menu(String title,
+                String exitEntryName,
+                String exitEntryTitle) {
+        m_title = title;
+
         m_entries = new HashMap<>();
         m_entriesNames = new ArrayList<>();
         m_exitEntriesNames = new ArrayList<>();
@@ -55,23 +65,25 @@ public class Menu {
 
 
     public void run() {
-        while (true) {
+        String choice;
+        do {
             Console.clear();
+
+            if (m_title != null && !m_title.equals("")) {
+                Console.printLine(m_title);
+            }
 
             printEntries();
             Console.printLine();
 
-            String choice = Console.readLine(m_choiceAskMessage).toUpperCase();
+            choice = Console.readLine(m_choiceAskMessage).toUpperCase();
             Console.printLine();
 
             if (m_entries.containsKey(choice)) {
                 m_entries.get(choice).run();
             }
-
-            if (m_exitEntriesNames.contains(choice)) {
-                break;
-            }
         }
+        while (!m_exitEntriesNames.contains(choice));
     }
 
     private void printEntries() {

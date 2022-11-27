@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args)
     {
-        Menu mainMenu = new Menu();
+        Menu mainMenu = new Menu("Выберите действие:");
 
         mainMenu.addEntry(
             "A", "Запустить решение задачи A",
