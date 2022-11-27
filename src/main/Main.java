@@ -4,6 +4,7 @@ import java.util.Random;
 import con.Console;
 import ext.ExtendedArray;
 import ext.ExtendedString;
+import menu.Menu;
 
 
 public class Main {
@@ -11,114 +12,92 @@ public class Main {
 
     public static void main(String[] args)
     {
-        String choice;
-        do {
-            Console.clear();
-            PrintMenu();
+        Menu mainMenu = new Menu("Выберите действие:");
 
-            choice = Console.readLine(
-                "Ваш выбор"
-            ).toLowerCase(Locale.ROOT);
+        mainMenu.addEntry(
+            "A", "Запустить решение задачи A",
+            () -> {
+                Console.clear();
 
-            Console.clear();
-            switch (choice) {
-                case "a":
-                    RunTaskA();
-                    break;
+                Integer size = Console.getInteger(
+                    "Введите размер массива N (2 <= N <= 10)",
+                    2, 10
+                );
 
-                case "b":
-                    RunTaskB();
-                    break;
+                ExtendedArray array = new ExtendedArray();
 
-                case "c":
-                    RunTaskC();
-                    break;
+                for (int i = 0; i < size; ++i) {
+                    Double new_el = Math.round(
+                        (rand.nextDouble() * 100.0 - 50.0) * 10.0
+                    ) / 10.0;
 
-                default:
-                    continue;
+                    array.add(new_el);
+                }
+
+                Console.printLine("Сгенерированный массив:");
+                Console.printLine(array);
+                Console.printLine();
+
+                Double arg = Console.getDouble("Введите второй операнд");
+                String op = Console.readLine(
+                    "Введите знак операции (+,-,*,/)",
+                    "[\\+\\-\\*/]"
+                );
+
+                array.apply(op, arg);
+
+                Console.printLine();
+                Console.printLine("Обработанный массив:");
+                Console.printLine(array);
+
+                Console.pause();
             }
-
-            Console.pause();
-        }
-        while (!choice.equals("q"));
-
-        Console.clear();
-    }
-
-    private static void PrintMenu()
-    {
-        Console.printLine("Выберите дальнейшее действие:");
-        Console.printLine("[A] - Запустить решение задачи A;");
-        Console.printLine("[B] - Запустить решение задачи B;");
-        Console.printLine("[C] - Запустить решение задачи C;");
-        Console.printLine("[Q] - Выйти из программы.");
-        Console.printLine();
-    }
-
-
-    private static void RunTaskA()
-    {
-        Integer size = Console.getInteger(
-            "Введите размер массива N (2 <= N <= 10)",
-            2, 10
         );
 
-        ExtendedArray array = new ExtendedArray();
+        mainMenu.addEntry(
+            "B", "Запустить решение задачи B",
+            () -> {
+                Console.clear();
 
-        for (int i = 0; i < size; ++i) {
-            Double new_el = Math.round(
-                (rand.nextDouble() * 100.0 - 50.0) * 10.0
-            ) / 10.0;
+                ExtendedString string = new ExtendedString(
+                    Console.readLine(
+                        "Введите текст"
+                    ).toLowerCase(Locale.ROOT)
+                );
+        
+                Character vowels[] = {
+                    'a', 'e', 'i', 'o', 'u', 'y',
+                    'а', 'е', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я'
+                };
+        
+                Console.printLine(String.format(
+                    "Количество гласных букв в тексте равно %d.",
+                    string.countCharacters(vowels)
+                ));
 
-            array.add(new_el);
-        }
-
-        Console.printLine("Сгенерированный массив:");
-        Console.printLine(array);
-        Console.printLine();
-
-        Double arg = Console.getDouble("Введите второй операнд");
-        String op = Console.readLine(
-            "Введите знак операции (+,-,*,/)",
-            "[\\+\\-\\*/]"
+                Console.pause();
+            }
         );
 
-        array.apply(op, arg);
+        mainMenu.addEntry(
+            "C", "Запустить решение задачи C",
+            () -> {
+                Console.clear();
 
-        Console.printLine();
-        Console.printLine("Обработанный массив:");
-        Console.printLine(array);
-    }
+                Console.print("Введите текст: ");
+                ExtendedString string = new ExtendedString(
+                    Console.readLine()
+                );
 
-    private static void RunTaskB()
-    {
-        ExtendedString string = new ExtendedString(
-            Console.readLine(
-                "Введите текст"
-            ).toLowerCase(Locale.ROOT)
+                Console.printLine(String.format(
+                    "Текст с измененным порядком слов: %s",
+                    string.reversedWordsOrder()
+                ));
+
+                Console.pause();
+            }
         );
 
-        Character vowels[] = {
-            'a', 'e', 'i', 'o', 'u', 'y',
-            'а', 'е', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я'
-        };
-
-        Console.printLine(String.format(
-            "Количество гласных букв в тексте равно %d.",
-            string.countCharacters(vowels)
-        ));
-    }
-
-    private static void RunTaskC()
-    {
-        Console.print("Введите текст: ");
-        ExtendedString string = new ExtendedString(
-            Console.readLine()
-        );
-
-        Console.printLine(String.format(
-            "Текст с измененным порядком слов: %s",
-            string.reversedWordsOrder()
-        ));
+        mainMenu.run();
     }
 }
