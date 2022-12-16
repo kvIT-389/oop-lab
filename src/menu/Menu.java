@@ -64,7 +64,7 @@ public class Menu {
     }
 
 
-    public void run() {
+    public String run() {
         String choice;
         while (true) {
             Console.clear();
@@ -91,6 +91,9 @@ public class Menu {
 
             Console.pause();
         }
+
+        // Returns entry name that exits menu.
+        return choice;
     }
 
     private void printEntries() {
