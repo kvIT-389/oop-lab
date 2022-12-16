@@ -24,7 +24,7 @@ public class Menu {
     public Menu(String title) {
         this(title, "Q", "Выход");
     }
-    
+
     public Menu(String title,
                 String exitEntryName,
                 String exitEntryTitle) {
@@ -54,7 +54,7 @@ public class Menu {
     public void addExitEntry(String name, String title, Action action) {
         String upperCaseName = name.toUpperCase();
         MenuEntry entry = new MenuEntry(title, action);
-        
+
         putEntry(upperCaseName, entry);
         m_exitEntriesNames.add(upperCaseName);
     }
@@ -66,7 +66,7 @@ public class Menu {
 
     public void run() {
         String choice;
-        do {
+        while (true) {
             Console.clear();
 
             if (m_title != null && !m_title.equals("")) {
@@ -77,13 +77,20 @@ public class Menu {
             Console.printLine();
 
             choice = Console.readLine(m_choiceAskMessage).toUpperCase();
-            Console.printLine();
 
-            if (m_entries.containsKey(choice)) {
-                m_entries.get(choice).run();
+            if (!m_entries.containsKey(choice)) {
+                continue;
             }
+
+            Console.clear();
+            m_entries.get(choice).run();
+
+            if (m_exitEntriesNames.contains(choice)) {
+                break;
+            }
+
+            Console.pause();
         }
-        while (!m_exitEntriesNames.contains(choice));
     }
 
     private void printEntries() {
