@@ -19,7 +19,7 @@ public class Main {
             () -> {
                 Console.clear();
 
-                Integer size = Console.getInteger(
+                Integer size = Console.readInteger(
                     "Введите размер массива N (2 <= N <= 10)",
                     2, 10
                 );
@@ -38,7 +38,7 @@ public class Main {
                 Console.printLine(array);
                 Console.printLine();
 
-                Double arg = Console.getDouble("Введите второй операнд");
+                Double arg = Console.readDouble("Введите второй операнд");
                 String op = Console.readLine(
                     "Введите знак операции (+,-,*,/)",
                     "[\\+\\-\\*/]"
