@@ -22,12 +22,6 @@ public class Menu {
     }
 
     public Menu(String title) {
-        this(title, "Q", "Выход");
-    }
-
-    public Menu(String title,
-                String exitEntryName,
-                String exitEntryTitle) {
         m_title = title;
 
         m_entries = new HashMap<>();
@@ -35,10 +29,16 @@ public class Menu {
         m_exitEntriesNames = new ArrayList<>();
 
         m_choiceAskMessage = "Ваш выбор";
+    }
+    
+    public Menu(String title,
+                String exitEntryName,
+                String exitEntryTitle) {
+        this(title);
 
         addExitEntry(
             exitEntryName, exitEntryTitle,
-            () -> { Console.clear(); }
+            () -> {}
         );
     }
 
@@ -64,8 +64,15 @@ public class Menu {
     }
 
 
-    public String run() {
+    public String run() throws NoExitEntryException {
         String choice;
+
+        if (m_exitEntriesNames.isEmpty()) {
+            throw new NoExitEntryException(
+                "Menu must contain at least 1 exit entry"
+            );
+        }
+
         while (true) {
             Console.clear();
 

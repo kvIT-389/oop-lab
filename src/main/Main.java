@@ -1,4 +1,5 @@
 import menu.Menu;
+import menu.NoExitEntryException;
 import tasks.ArrayApplyTask;
 import tasks.VowelsCountTask;
 import tasks.WordsReverseTask;
@@ -7,7 +8,9 @@ import tasks.WordsReverseTask;
 public class Main {
     public static void main(String[] args)
     {
-        Menu mainMenu = new Menu("Выберите действие:");
+        Menu mainMenu = new Menu(
+            "Выберите действие:", "Q", "Выход"
+        );
 
         mainMenu.addEntry(
             "A", "Запустить решение задачи A",
@@ -24,6 +27,9 @@ public class Main {
             new WordsReverseTask()
         );
 
-        mainMenu.run();
+        try {
+            mainMenu.run();
+        }
+        catch (NoExitEntryException e) {}
     }
 }
